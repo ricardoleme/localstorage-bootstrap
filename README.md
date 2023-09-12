@@ -20,10 +20,8 @@ Para iniciar o projeto, siga estas etapas:
 
 1. Clone o repositório:
 
-   ```shell
-   git clone https://github.com/ricardoleme/localstorage-bootstrap.git
-  ```
-   
+   ```git clone https://github.com/ricardoleme/localstorage-bootstrap.git```
+
 2. Abra o arquivo index.html no seu navegador.
 3. Use a aplicação para adicionar, editar e excluir clientes.
 
