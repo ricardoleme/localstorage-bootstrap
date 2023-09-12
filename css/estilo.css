@@ -1,0 +1,76 @@
+/* Estilo do projeto */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto:wght@100;300;400&display=swap');
+body{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    background: linear-gradient(to bottom, #3498db, #0e3b58);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* O tamanho mínimo é de 100% da altura da view*/
+    display: flex; /* torna a UI flexível para a responsividade */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    color: #fff;
+    font-weight: 400;
+}
+
+label{
+    display: block;
+    margin-bottom: 8px;
+    margin-top: 4px;
+}
+
+fieldset{
+    width: 30%;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 24px;
+    padding: 16px;
+}
+
+legend{
+    font-size: small;
+    padding: 4px;
+}
+
+form{
+    margin-top: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 16px;
+    border-radius: 16px; /* arredondamento dos cantos */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.8); /* sombreamento X, Y, Blur */
+}
+
+input {    
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #CCC;
+}
+
+/* quando começa com # indica que irá buscar um elemento com o id mencionado */
+#login{
+    background: #0e3b58;
+}
+#login:hover{
+    background-color: #d3c986;
+    color: #000
+}
+#limpar{
+    background: #3498db;
+}
+#limpar:hover{
+    background-color: white;
+    color: #0e3b58;
+}
+/* quando começa com . indica que será uma classe CSS */
+.botao{
+    padding: 8px 32px; /* 1o é na vertical e o 2o é na horizontal */
+    border-radius: 16px;
+    color:rgba(255, 255, 255, 0.8);
+    box-shadow: 0 12px 16px rgba(0,0,0,0.8);
+    cursor: pointer;
+}
+

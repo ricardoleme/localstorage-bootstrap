@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área Reservada</title>
+    <!-- favicon -->
+    <link rel="icon" href="images/cadeado.png" type="image/png" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/estilo.css" />
+</head>
+<body>
+    <h1>Área Reservada</h1>
+    <!-- 
+        title-> aparece qdo o usuário coloca o mouse na imagem
+        alt-> é utilizado pelo leitor de tela e quando a imagem não pode ser 
+        carregada 
+    -->
+    <img src="images/cadeado.png"
+         title="Logo da Empresa"
+         alt="cadeado de segurança"
+         width="100" />   
+    
+    <form method="post">
+        <fieldset>
+            <legend>Dados para o Login</legend>
+            
+            <label for="email">E-mail</label>
+            <input type="text" id="email" name="email" required autofocus
+            placeholder="nome@provedor.com" title="Informe o email de cadastro"/>
+            
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" required
+            placeholder="Senha" title="Senha do cadastro" maxlength="10" />            
+        </fieldset>
+        <input type="submit" value="Login" id="login" class="botao" onclick="validaLogin(event)" />
+        <input type="reset" value="Limpar" id="limpar" class="botao" />
+    </form>
+    <script src="js/login.js"></script>
+</body>
+</html>
