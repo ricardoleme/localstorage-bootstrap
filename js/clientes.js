@@ -1,109 +1,124 @@
-class Cliente {
-    constructor() {
-        this.clientes = this.getLocalStorageData();
-    }
-
-    static fields = ['cpf', 'nome', 'cep', 'endereco', 'bairro', 'cidade', 'estado', 'observacoes'];
-
-    getLocalStorageData() {
-        return JSON.parse(localStorage.getItem("tbClientes")) || [];
-    }
-
-    setLocalStorageData(data) {
-        localStorage.setItem("tbClientes", JSON.stringify(data));
-    }
-
-    salva(cliente) {
-        if (document.getElementById('cpf').getAttribute('disabled') === 'disabled') {
-            this.apaga(cliente.cpf);
-        }
-        this.clientes.push(cliente);
-        this.setLocalStorageData(this.clientes);
-        alert('Cliente salvo com sucesso!');
-        this.limpa();
-        this.atualiza();        
-        return true;
-    }
-
-    apaga(cpf) {
-        this.clientes = this.clientes.filter(cliente => cliente.cpf != cpf);
-        this.setLocalStorageData(this.clientes);
-        this.atualiza();
-    }
-
-    limpa() {
-        Cliente.fields.forEach(field => document.getElementById(field).value = '');
-        document.getElementById('cpf').removeAttribute('disabled');
-    }
-
-    edita(cliente) {
-        document.getElementById('cpf').setAttribute('disabled', 'disabled');        
-        Cliente.fields.forEach(field => document.getElementById(field).value = cliente[field]);
-    }
-
-    lista() {
-        return `
-        <table border='1' class='table table-bordered caption-top'>
-         <caption>Relação dos Clientes</caption>
-            <thead class='table-primary'>
-                <th>CPF</th>
-                <th>Nome</th>
-                <th>CEP</th>
-                <th>Endereço</th>
-                <th>Bairro</th>
-                <th>Cidade</th>
-                <th>Estado</th>
-                <th>Observações</th>
-                <th>Opções</th>
-            </thead>
-            <tbody>
-            ${this.clientes.map(cliente => this.renderClienteRow(cliente)).join('')}
-            </tbody>
-        </table>`;
-    }
-
-    renderClienteRow(cliente) {
-        return `<tr>
-            <td>${cliente.cpf}</td>
-            <td>${cliente.nome}</td>
-            <td>${cliente.cep}</td>
-            <td>${cliente.endereco}</td>
-            <td>${cliente.bairro}</td>
-            <td>${cliente.cidade}</td>
-            <td>${cliente.estado}</td>
-            <td>${cliente.observacoes}</td>
-            <td>
-                <button class='btn btn-danger btn-sm' onClick='cliente.apaga("${cliente.cpf}")'>🗑️Apagar</button>
-                <button class='btn btn-warning btn-sm' onClick='cliente.edita(${JSON.stringify(cliente)})'>📝Editar</button>
-            </td>
-        </tr>`;
-    }
-
-    atualiza() {
-        document.getElementById('listagem').innerHTML = this.lista();
-    }
-}
-
-const cliente = new Cliente();
-
-document.getElementById('salvar').addEventListener('click', (event) => {
-    event.preventDefault(); // evita o comportamento padrão do botão
-    const registro = {
-        cpf: document.getElementById('cpf').value,
-        nome: document.getElementById('nome').value,
-        cep: document.getElementById('cep').value,
-        endereco: document.getElementById('endereco').value,
-        bairro: document.getElementById('bairro').value,
-        cidade: document.getElementById('cidade').value,
-        estado: document.getElementById('estado').value,
-        observacoes: document.getElementById('observacoes').value
+// Função para sallet os dados do formulário no LocalStorage
+function salvarCliente() {
+    // Obtenha os dados do formulário
+    let cpf = document.getElementById("cpf").value;
+    let nome = document.getElementById("nome").value;
+    let cep = document.getElementById("cep").value;
+    let endereco = document.getElementById("endereco").value;
+    let bairro = document.getElementById("bairro").value;
+    let cidade = document.getElementById("cidade").value;
+    let estado = document.getElementById("estado").value;
+    let observacoes = document.getElementById("observacoes").value;
+  
+    // Verifique se o LocalStorage já contém dados de clientes
+    let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+  
+    // Crie um objeto com os dados do cliente
+    let cliente = {
+      cpf: cpf,
+      nome: nome,
+      cep: cep,
+      endereco: endereco,
+      bairro: bairro,
+      cidade: cidade,
+      estado: estado,
+      observacoes: observacoes,
     };
-    cliente.salva(registro);
-});
-
-window.onload = function () {
-    cliente.atualiza();
-};
+  
+    // Adicione o cliente à lista de clientes
+    clientes.push(cliente);
+  
+    // Salve a lista atualizada no LocalStorage
+    localStorage.setItem("clientes", JSON.stringify(clientes));
+  
+    // Limpe o formulário
+    document.getElementById("cpf").value = "";
+    document.getElementById("nome").value = "";
+    document.getElementById("cep").value = "";
+    document.getElementById("endereco").value = "";
+    document.getElementById("bairro").value = "";
+    document.getElementById("cidade").value = "";
+    document.getElementById("estado").value = "";
+    document.getElementById("observacoes").value = "";
+  
+    // Atualize a tabela de listagem
+    listarClientes();
+  }
+  
+ // Função para listar os dados dos clientes na tabela
+function listarClientes() {
+    var clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+    var tabela = document.getElementById("listagem");
+  
+    // Limpe a tabela
+    tabela.innerHTML = "";
+  
+    // Crie uma tabela HTML
+    var table = document.createElement("table");
+    table.className = "table";
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th>CPF</th>
+          <th>Nome</th>
+          <th>CEP</th>
+          <th>Endereço</th>
+          <th>Bairro</th>
+          <th>Cidade</th>
+          <th>Estado</th>
+          <th>Observações</th>
+          <th>Ações</th> <!-- Adicione uma coluna para as ações -->
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    `;
+  
+    // Preencha a tabela com os dados dos clientes
+    var tbody = table.querySelector("tbody");
+    for (var i = 0; i < clientes.length; i++) {
+      var cliente = clientes[i];
+      var row = tbody.insertRow(i);
+      row.innerHTML = `
+        <td>${cliente.cpf}</td>
+        <td>${cliente.nome}</td>
+        <td>${cliente.cep}</td>
+        <td>${cliente.endereco}</td>
+        <td>${cliente.bairro}</td>
+        <td>${cliente.cidade}</td>
+        <td>${cliente.estado}</td>
+        <td>${cliente.observacoes}</td>
+        <td><button class="btn btn-danger" onclick="apagarCliente('${cliente.cpf}')">Apagar</button></td> <!-- Botão de Apagar com função onclick -->
+      `;
+    }
+  
+    tabela.appendChild(table);
+  }
+  
+  
+// Função para apagar um cliente pelo CPF
+function apagarCliente(cpf) {
+    var clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+  
+    // Filtrar a lista de clientes para remover o cliente com o CPF especificado
+    clientes = clientes.filter(function (cliente) {
+      return cliente.cpf !== cpf;
+    });
+  
+    // Atualizar o LocalStorage com a nova lista de clientes
+    localStorage.setItem("clientes", JSON.stringify(clientes));
+  
+    // Atualizar a tabela de listagem
+    listarClientes();
+  }
+  
+  // Adicione um ouvinte de eventos para o botão "Salvar"
+  document.getElementById("salvar").addEventListener("click", salvarCliente);
+  
+  
+  // Liste os clientes quando a página carregar
+  listarClientes();
+  
 
 document.getElementById('buscarCep').addEventListener('click', () => {
     const cep = document.getElementById('cep').value;
