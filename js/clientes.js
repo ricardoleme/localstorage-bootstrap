@@ -47,14 +47,14 @@ function salvarCliente() {
   
  // Função para listar os dados dos clientes na tabela
 function listarClientes() {
-    var clientes = JSON.parse(localStorage.getItem("clientes")) || [];
-    var tabela = document.getElementById("listagem");
+    let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+    let tabela = document.getElementById("listagem");
   
     // Limpe a tabela
     tabela.innerHTML = "";
   
     // Crie uma tabela HTML
-    var table = document.createElement("table");
+    let table = document.createElement("table");
     table.className = "table";
     table.innerHTML = `
       <thead>
@@ -75,10 +75,10 @@ function listarClientes() {
     `;
   
     // Preencha a tabela com os dados dos clientes
-    var tbody = table.querySelector("tbody");
-    for (var i = 0; i < clientes.length; i++) {
-      var cliente = clientes[i];
-      var row = tbody.insertRow(i);
+    let tbody = table.querySelector("tbody");
+    for (let i = 0; i < clientes.length; i++) {
+      let cliente = clientes[i];
+      let row = tbody.insertRow(i);
       row.innerHTML = `
         <td>${cliente.cpf}</td>
         <td>${cliente.nome}</td>
@@ -98,7 +98,7 @@ function listarClientes() {
   
 // Função para apagar um cliente pelo CPF
 function apagarCliente(cpf) {
-    var clientes = JSON.parse(localStorage.getItem("clientes")) || [];
+    let clientes = JSON.parse(localStorage.getItem("clientes")) || [];
   
     // Filtrar a lista de clientes para remover o cliente com o CPF especificado
     clientes = clientes.filter(function (cliente) {
